@@ -96,6 +96,19 @@ class MstTest {
         assertEquals(2 * m.edgeScans + res.edges.size(), m.dsuOps);
     }
 
+    @Test
+    void singleVertexGraphHasZeroWeight() {
+        Graph g = new Graph(1, false);
+        MstResult k = Kruskal.run(g, new Metrics());
+        MstResult p = Prim.run(g, new Metrics());
+        assertEquals(0, k.totalWeight);
+        assertEquals(0, p.totalWeight);
+        assertEquals(1, k.components);
+        assertEquals(1, p.components);
+        assertTrue(k.edges.isEmpty());
+        assertTrue(p.edges.isEmpty());
+    }
+
     private static boolean isSpanningTree(int n, List<Edge> edges) {
         Dsu d = new Dsu(n);
         for (Edge e : edges) {
