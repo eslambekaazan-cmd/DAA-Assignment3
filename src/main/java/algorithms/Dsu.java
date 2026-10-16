@@ -13,6 +13,9 @@ public class Dsu {
     }
 
     public void makeSet(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Number of elements cannot be negative");
+        }
         parent = new int[n];
         rank = new int[n];
         for (int i = 0; i < n; i++) {
