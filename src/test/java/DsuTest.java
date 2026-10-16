@@ -9,6 +9,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class DsuTest {
 
@@ -94,5 +95,13 @@ class DsuTest {
         for (int i = 0; i < n; i += 997) {
             assertEquals(root, d.find(i));
         }
+    }
+
+    @Test
+    void negativeSizeIsRejected() {
+        assertThrows(IllegalArgumentException.class, () -> new Dsu(-1));
+        Dsu d = new Dsu(3);
+        assertThrows(IllegalArgumentException.class, () -> d.makeSet(-5));
+        assertEquals(3, d.components());
     }
 }
