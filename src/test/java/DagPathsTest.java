@@ -111,6 +111,15 @@ class DagPathsTest {
         assertThrows(IllegalArgumentException.class, () -> DagShortestPath.run(g, new Metrics()));
     }
 
+    @Test
+    void singleVertexHasZeroDistance() {
+        Graph g = new Graph(1, true);
+        DagShortestPath.Result res = DagShortestPath.run(g, new Metrics());
+        assertEquals(0, res.dist[0]);
+        assertEquals(0, res.sumDist);
+        assertEquals(List.of(0), res.pathTo(0));
+    }
+
     private static long pathLength(Graph g, List<Integer> path) {
         long sum = 0;
         for (int i = 0; i + 1 < path.size(); i++) {
