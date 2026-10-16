@@ -96,6 +96,16 @@ class SccTest {
         assertEquals(1, res.count);
     }
 
+    @Test
+    void twoVerticesWithMutualEdgesFormOneComponent() {
+        Graph g = new Graph(2, true);
+        g.addEdge(0, 1, 1);
+        g.addEdge(1, 0, 1);
+        Kosaraju.Result res = Kosaraju.run(g, new Metrics());
+        assertEquals(1, res.count);
+        assertEquals(res.comp[0], res.comp[1]);
+    }
+
     private static boolean[] bfs(Graph g, int s) {
         boolean[] seen = new boolean[g.n()];
         ArrayDeque<Integer> q = new ArrayDeque<>();
